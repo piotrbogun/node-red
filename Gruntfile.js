@@ -108,7 +108,7 @@ module.exports = function(grunt) {
             // },
             nodes: {
                 files: {
-                    src: [ 'nodes/core/*/*.js' ]
+                    src: [ 'packages/nodes/core/*/*.js' ]
                 }
             },
             editor: {
