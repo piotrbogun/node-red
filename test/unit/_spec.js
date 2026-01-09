@@ -30,7 +30,7 @@ var path = require('path');
 
 // Directories to check with .js files and _spec.js files respectively
 var rootdir = path.resolve(__dirname, "../..");
-var jsdir = path.resolve(__dirname, "../../packages/node_modules/");
+var jsdir = path.resolve(__dirname, "../../packages/");
 var testdir = path.resolve(__dirname);
 
 var walkDirectory = function(dir) {
@@ -41,7 +41,7 @@ var walkDirectory = function(dir) {
         list.forEach(function(file) {
             var filePath = path.join(dir,file);
 
-            if (!/@node-red\/(editor-client|nodes)/.test(filePath) && !/node-red\/settings\.js/.test(filePath) && !/\/docs\//.test(filePath)) {
+            if (!/(editor-client|nodes)/.test(filePath) && !/node-red\/settings\.js/.test(filePath) && !/\/docs\//.test(filePath)) {
                 promises.push(fs.stat(filePath).then(function(stat){
                     if (stat.isDirectory()) {
                         return walkDirectory(filePath).then(function(results) {
@@ -51,6 +51,8 @@ var walkDirectory = function(dir) {
                         });
                     } else if (/\.js$/.test(filePath)) {
                         var testFile = filePath.replace(jsdir, testdir).replace(".js", "_spec.js");
+                        // Map packages/<pkg> to test/unit/@node-red/<pkg> for scoped packages
+                        testFile = testFile.replace(/test\/unit\/(util|registry|runtime|editor-api|editor-client)\//, 'test/unit/@node-red/$1/');
                         return fs.exists(testFile).then(function(exists) {
                             if (!exists) {
                                 errors.push(testFile.substring(rootdir.length+1));

@@ -23,7 +23,7 @@ async function verifyDependencies(depType = 'dependencies') {
     let failures = [];
     let packageUpdates = {};
     packages.forEach(package => {
-        let modulePackage = require(path.join("../packages/node_modules",package,"package.json"));
+        let modulePackage = require(path.join("../packages",package.replace('@node-red/', ''),"package.json"));
         let dependencies = Object.keys(modulePackage[depType]||{});
         dependencies.forEach(module => {
             try {
@@ -49,7 +49,7 @@ async function verifyDependencies(depType = 'dependencies') {
         var promises = [];
         packages.forEach(package => {
             if (packageUpdates.hasOwnProperty(package)) {
-                promises.push(fs.writeJSON(path.join(__dirname,"../packages/node_modules",package,"package.json"),packageUpdates[package],{spaces:4}));
+                promises.push(fs.writeJSON(path.join(__dirname,"../packages",package.replace('@node-red/', ''),"package.json"),packageUpdates[package],{spaces:4}));
             }
         });
         return Promise.all(promises).then(r => []).catch(e => {
