@@ -8,9 +8,18 @@
         "type": "git",
         "url": "https://github.com/node-red/node-red.git"
     },
-    "private": "true",
+    "private": true,
+    "workspaces": [
+        "packages/util",
+        "packages/registry",
+        "packages/runtime",
+        "packages/nodes",
+        "packages/editor-client",
+        "packages/editor-api",
+        "packages/node-red"
+    ],
     "scripts": {
-        "start": "node packages/node_modules/node-red/red.js",
+        "start": "node packages/node-red/red.js",
         "test": "grunt",
         "build": "grunt build",
         "dev": "grunt dev",

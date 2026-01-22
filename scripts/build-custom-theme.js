@@ -2,7 +2,7 @@
 
 // This script can be used to build custom colour-scheme css files.
 //
-// 1. Create a copy of packages/node_modules/@node-red/editor-client/src/sass/colors.scss
+// 1. Create a copy of packages/editor-client/src/sass/colors.scss
 //    and change the values to the desired colours.
 //
 // 2. Run this script, providing the path to the custom file using the --in option
@@ -54,7 +54,7 @@ if (!parsedArgs.in) {
     const tmpDir = os.tmpdir();
     const workingDir = await fs.mkdtemp(`${tmpDir}${path.sep}`);
 
-    await fs.copy(path.join(__dirname, '../packages/node_modules/@node-red/editor-client/src/sass/'), workingDir);
+    await fs.copy(path.join(__dirname, '../packages/editor-client/src/sass/'), workingDir);
     await fs.copyFile(parsedArgs.in, path.join(workingDir,'colors.scss'));
 
     const output = sass.compile(

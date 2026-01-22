@@ -10,7 +10,7 @@
     },
     "source": {
         "_include": [
-            "./packages/node_modules/@node-red/runtime/lib/api"
+            "./packages/runtime/lib/api"
         ]
     },
     "templates": {

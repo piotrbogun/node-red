@@ -81,9 +81,10 @@ describe('watch Node', function() {
                         return;
                     }
                     processed[file] = true;
-                    if (file === 'subdir') {
+                    if (file === 'subdir' || file.startsWith('base')) {
                         // On OSX, we get a change event on subdir when a file inside changes.
                         // On Travis, we don't. *sigh*
+                        // We also get events for the base directory itself on some platforms.
                         return;
                     }
                     (file in results).should.be.true();

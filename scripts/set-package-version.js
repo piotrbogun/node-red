@@ -32,7 +32,7 @@ if (/^\d+\.\d+\.\d+(-.*)?/.test(targetVersion)) {
     let promises = [];
     promises.push(updatePackage(rootPackage,targetVersion));
     packages.forEach(package => {
-        promises.push(updatePackage(path.join(__dirname,"../packages/node_modules",package,"package.json"),targetVersion))
+        promises.push(updatePackage(path.join(__dirname,"../packages",package.replace('@node-red/', ''),"package.json"),targetVersion))
     });
     Promise.all(promises).catch(e => {
         console.log(e);
